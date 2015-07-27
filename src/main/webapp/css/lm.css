@@ -1,0 +1,26 @@
+#gameTable {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.opponentLm {
+    background-color: gray;
+    width: 40px;
+}
+
+.opponentPit {
+    background-color: gray;
+    height: 40px;
+    width: 40px;
+}
+
+.myLm {
+    background-color: green;
+    width: 40px;
+}
+
+.myPit {
+    background-color: green;
+    height: 40px;
+    width: 40px;
+}
