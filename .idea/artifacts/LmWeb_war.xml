@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="LmWeb:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="LmWeb.war">
-      <element id="artifact" artifact-name="LmWeb:war exploded" />
-    </root>
-  </artifact>
-</component>
