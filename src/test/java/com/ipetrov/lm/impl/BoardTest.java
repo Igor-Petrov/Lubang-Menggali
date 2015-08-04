@@ -1,4 +1,4 @@
-package com.bol.test.lm.impl;
+package com.ipetrov.lm.impl;
 
 import org.junit.Before;
 import org.junit.Test;

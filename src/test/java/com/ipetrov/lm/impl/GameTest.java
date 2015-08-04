@@ -1,6 +1,5 @@
-package com.bol.test.lm.impl;
+package com.ipetrov.lm.impl;
 
-import com.bol.test.lm.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,13 +13,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class GameTest {
     private GameImpl game;
-    private Player player1;
-    private Player player2;
+    private PlayerImpl player1;
+    private PlayerImpl player2;
 
     @Before
     public void setUp() {
-        player1 = new Player("1", "1");
-        player2 = new Player("2", "2");
+        player1 = new PlayerImpl("1", "1");
+        player2 = new PlayerImpl("2", "2");
         game = new GameImpl(player1, player2);
     }
 

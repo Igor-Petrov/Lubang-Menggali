@@ -1,6 +1,6 @@
-package com.bol.test.web;
+package com.ipetrov.lm.web;
 
-import com.bol.test.web.dto.Message;
+import com.ipetrov.lm.web.dto.Message;
 
 import javax.json.Json;
 
@@ -68,6 +68,6 @@ public class Constants {
             .build());
 
     private Constants() {
-
+        // class contains constants only
     }
 }

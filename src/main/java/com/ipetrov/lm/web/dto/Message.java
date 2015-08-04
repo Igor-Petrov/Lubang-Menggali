@@ -1,4 +1,4 @@
-package com.bol.test.web.dto;
+package com.ipetrov.lm.web.dto;
 
 import javax.json.Json;
 import javax.json.JsonObject;

@@ -1,8 +1,8 @@
-package com.bol.test.lm.impl;
+package com.ipetrov.lm.impl;
 
-import com.bol.test.lm.Game;
-import com.bol.test.lm.GameBoard;
-import com.bol.test.lm.Player;
+import com.ipetrov.lm.Game;
+import com.ipetrov.lm.GameBoard;
+import com.ipetrov.lm.Player;
 
 /**
  * User: Igor
@@ -14,7 +14,7 @@ public class GameImpl implements Game {
     private final GameBoardImpl board2;
     private boolean isPlayer1Turn = true;
 
-    public GameImpl(Player player1, Player player2) {
+    public GameImpl(PlayerImpl player1, PlayerImpl player2) {
         board1 = new GameBoardImpl(player1, this);
         board2 = new GameBoardImpl(player2, this);
     }
@@ -35,7 +35,7 @@ public class GameImpl implements Game {
                 && board2.pitsAreEmpty();
     }
 
-    public Player getWinner() {
+    public PlayerImpl getWinner() {
         if (!isFinished()) {
             throw new IllegalStateException();
         }

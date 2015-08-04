@@ -1,15 +1,14 @@
-package com.bol.test.web;
+package com.ipetrov.lm.web;
 
-import com.bol.test.web.dto.Message;
-import com.bol.test.web.dto.MessageDecoder;
-import com.bol.test.web.dto.MessageEncoder;
+import com.ipetrov.lm.web.dto.Message;
+import com.ipetrov.lm.web.dto.MessageDecoder;
+import com.ipetrov.lm.web.dto.MessageEncoder;
 import org.apache.log4j.Logger;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-
-import static com.bol.test.web.Constants.*;
+import static com.ipetrov.lm.web.Constants.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,7 +20,7 @@ import static com.bol.test.web.Constants.*;
 public class LmWebSocketServer {
     private static final GameEngine gameEngine = new GameEngine();
 
-    private static final Logger logger = Logger.getLogger(LmWebSocketServer.class);
+    private static final Logger LOGGER = Logger.getLogger(LmWebSocketServer.class);
 
     @OnOpen
     public void onOpen(Session session) {
@@ -38,9 +37,9 @@ public class LmWebSocketServer {
                 processPitClickMessage(message, session);
             }
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         } catch (EncodeException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -49,9 +48,9 @@ public class LmWebSocketServer {
         try {
             gameEngine.onSessionClosed(session);
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         } catch (EncodeException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

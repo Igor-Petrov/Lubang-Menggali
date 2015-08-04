@@ -1,7 +1,10 @@
-package com.bol.test.lm.impl;
+package com.ipetrov.lm.impl;
 
-import com.bol.test.lm.GameBoard;
-import com.bol.test.lm.Player;
+import com.ipetrov.lm.GameBoard;
+
+import java.util.Arrays;
+import java.util.function.IntPredicate;
+import java.util.function.IntUnaryOperator;
 
 /**
  * User: Igor
@@ -12,17 +15,20 @@ class GameBoardImpl implements GameBoard {
     private final int[] pits;
     private int lm;
 
-    private final Player player;
+    private final PlayerImpl player;
     private final GameImpl game;
 
-    GameBoardImpl(Player player, GameImpl game) {
+    GameBoardImpl(PlayerImpl player, GameImpl game) {
         this.player = player;
         this.game = game;
 
         pits = new int[PITS_COUNT];
-        for (int i = 0; i < pits.length; i++) {
-            pits[i] = STONES_COUNT;
-        }
+        Arrays.setAll(pits, new IntUnaryOperator() {
+            @Override
+            public int applyAsInt(int operand) {
+                return STONES_COUNT;
+            }
+        });
     }
 
     BaseSowResult sow(int pitNumber) throws IllegalArgumentException {
@@ -56,12 +62,12 @@ class GameBoardImpl implements GameBoard {
     }
 
     boolean pitsAreEmpty() {
-        for (int i = 0; i < pits.length; i++) {
-            if (pits[i] > 0) {
-                return false;
+        return Arrays.stream(pits).allMatch(new IntPredicate() {
+            @Override
+            public boolean test(int value) {
+                return value == 0;
             }
-        }
-        return true;
+        });
     }
 
     int revokeFromPit(int pitNumber) throws IllegalArgumentException {
@@ -100,7 +106,7 @@ class GameBoardImpl implements GameBoard {
         lm += stonesCount;
     }
 
-    Player getPlayer() {
+    PlayerImpl getPlayer() {
         return player;
     }
 

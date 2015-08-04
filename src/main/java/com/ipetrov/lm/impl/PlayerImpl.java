@@ -1,15 +1,17 @@
-package com.bol.test.lm;
+package com.ipetrov.lm.impl;
+
+import com.ipetrov.lm.Player;
 
 /**
  * User: Igor
  * Date: 15.08.14
  * Time: 23:24
  */
-public class Player {
+public class PlayerImpl implements Player {
     private final String name;
     private final String id;
 
-    public Player(String id, String name) {
+    public PlayerImpl(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -30,7 +32,7 @@ public class Player {
     @Override
     public boolean equals(Object obj) {
         return obj != null
-                && (obj instanceof Player)
-                && (((Player) obj).getId() == getId());
+                && (obj instanceof PlayerImpl)
+                && ((Player) obj).getId().equals(getId());
     }
 }

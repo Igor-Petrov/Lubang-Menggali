@@ -1,4 +1,4 @@
-package com.bol.test.web.dto;
+package com.ipetrov.lm.web.dto;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;

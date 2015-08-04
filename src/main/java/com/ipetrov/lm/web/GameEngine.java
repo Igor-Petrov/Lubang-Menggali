@@ -1,10 +1,11 @@
-package com.bol.test.web;
+package com.ipetrov.lm.web;
 
-import com.bol.test.lm.Game;
-import com.bol.test.lm.GameBoard;
-import com.bol.test.lm.Player;
-import com.bol.test.lm.impl.GameImpl;
-import com.bol.test.web.dto.Message;
+import com.ipetrov.lm.Game;
+import com.ipetrov.lm.GameBoard;
+import com.ipetrov.lm.Player;
+import com.ipetrov.lm.impl.PlayerImpl;
+import com.ipetrov.lm.impl.GameImpl;
+import com.ipetrov.lm.web.dto.Message;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
@@ -15,8 +16,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static com.bol.test.web.Constants.*;
-
 /**
  * Created with IntelliJ IDEA.
  * User: IPetrov
@@ -24,9 +23,9 @@ import static com.bol.test.web.Constants.*;
  * Time: 5:45 PM
  */
 public class GameEngine {
-    private final Map<String, Session> sessions = new ConcurrentHashMap<String, Session>();
-    private final Map<String, Game> games = new ConcurrentHashMap<String, Game>();
-    private Player waitingPlayer;
+    private final Map<String, Session> sessions = new ConcurrentHashMap<>();
+    private final Map<String, Game> games = new ConcurrentHashMap<>();
+    private PlayerImpl waitingPlayer;
     private ReentrantLock waitingPlayerLock = new ReentrantLock();
 
     public void onSessionOpened(Session session) {
@@ -39,7 +38,7 @@ public class GameEngine {
         if (game != null) {
             Player opponent = game.getOpponent(session.getId());
             endGame(game, session);
-            sendMessage(opponent, MSG_OPPONENT_DISCONNECTED);
+            sendMessage(opponent, Constants.MSG_OPPONENT_DISCONNECTED);
         } else {
             try {
                 waitingPlayerLock.lock();
@@ -56,11 +55,11 @@ public class GameEngine {
         try {
             waitingPlayerLock.lock();
             if (waitingPlayer != null && !waitingPlayer.getId().equals(session.getId())) {
-                createGame(waitingPlayer, new Player(session.getId(), login));
+                createGame(waitingPlayer, new PlayerImpl(session.getId(), login));
                 waitingPlayer = null;
             } else {
-                waitingPlayer = new Player(session.getId(), login);
-                sendMessage(waitingPlayer, MSG_WAIT);
+                waitingPlayer = new PlayerImpl(session.getId(), login);
+                sendMessage(waitingPlayer, Constants.MSG_WAIT);
             }
         } finally {
             waitingPlayerLock.unlock();
@@ -80,14 +79,14 @@ public class GameEngine {
 
             if (game.isFinished()) {
                 if (game.getWinner().equals(player)) {
-                    sendMessage(player, MSG_WIN);
-                    sendMessage(opponent, MSG_LOSE);
+                    sendMessage(player, Constants.MSG_WIN);
+                    sendMessage(opponent, Constants.MSG_LOSE);
                 } else if (game.getWinner().equals(opponent)) {
-                    sendMessage(player, MSG_LOSE);
-                    sendMessage(opponent, MSG_WIN);
+                    sendMessage(player, Constants.MSG_LOSE);
+                    sendMessage(opponent, Constants.MSG_WIN);
                 } else {
-                    sendMessage(player, MSG_DRAW);
-                    sendMessage(opponent, MSG_DRAW);
+                    sendMessage(player, Constants.MSG_DRAW);
+                    sendMessage(opponent, Constants.MSG_DRAW);
                 }
                 endGame(game, session);
             }
@@ -101,7 +100,7 @@ public class GameEngine {
         }
     }
 
-    private Game createGame(Player player1, Player player2) throws IOException, EncodeException {
+    private Game createGame(PlayerImpl player1, PlayerImpl player2) throws IOException, EncodeException {
         Game game = new GameImpl(player1, player2);
         games.put(player1.getId(), game);
         games.put(player2.getId(), game);
@@ -133,7 +132,7 @@ public class GameEngine {
         }
 
         return new Message(Json.createObjectBuilder()
-                .add(MSG_PROP_TYPE, MSG_TYPE_GAME)
+                .add(Constants.MSG_PROP_TYPE, Constants.MSG_TYPE_GAME)
                 .add("opponentLogin", opponent.getName())
                 .add("myLm", myBoard.getLm())
                 .add("opponentLm", opponentBoard.getLm())

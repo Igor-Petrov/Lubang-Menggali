@@ -1,4 +1,4 @@
-package com.bol.test.web.dto;
+package com.ipetrov.lm.web.dto;
 
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import java.io.StringReader;
  * Time: 4:04 PM
  */
 public class MessageDecoder implements Decoder.Text<Message> {
-    private static final Logger logger = Logger.getLogger(MessageDecoder.class);
+    private static final Logger LOGGER = Logger.getLogger(MessageDecoder.class);
 
     public Message decode(String string) throws DecodeException {
         JsonObject json = Json.createReader(new StringReader(string)).readObject();
@@ -29,7 +29,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
             Json.createReader(new StringReader(string)).read();
             return true;
         } catch (JsonException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
