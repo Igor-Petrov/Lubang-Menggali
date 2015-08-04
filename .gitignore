@@ -35,3 +35,6 @@ Icon
 .Spotlight-V100
 .Trashes
 target
+/.idea/misc.xml
+/.idea/workspace.xml
+/.idea/uiDesigner.xml
